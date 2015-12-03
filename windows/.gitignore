@@ -1,0 +1,7 @@
+/x64
+/cuda
+*.sdf
+*.suo
+*.user
+*.pdb
+*.opensdf
