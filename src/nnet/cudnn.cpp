@@ -65,17 +65,18 @@ void PoolBC01CuDNN<T>::fprop(const T *imgs, int *imgs_shape, T *poolout) {
     for (int i = 0; i < n_imgs_dims; ++i) {
       this->imgs_shape[i] = imgs_shape[i];
     }
-    int imgs_strides[n_imgs_dims];
+    int* imgs_strides = new int[n_imgs_dims];
     array_strides(n_imgs_dims, imgs_shape, imgs_strides);
     CUDNN_CHECK(cudnnSetTensorNdDescriptor(
         imgs_desc, CUDNN_DATA_FLOAT, n_imgs_dims, imgs_shape, imgs_strides
     ));
+    delete[] imgs_strides;
 
     CUDNN_CHECK(cudnnSetPoolingNdDescriptor(
         pool_desc, pool_mode, n_img_dims, win_shape, padding, strides
     ));
 
-    int poolout_shape[n_imgs_dims];
+    int* poolout_shape = new int[n_imgs_dims];
     poolout_shape[0] = imgs_shape[0];
     poolout_shape[1] = imgs_shape[1];
     for (int i = 0; i < n_img_dims; ++i) {
@@ -83,12 +84,14 @@ void PoolBC01CuDNN<T>::fprop(const T *imgs, int *imgs_shape, T *poolout) {
                            / strides[i] + 1;
     }
 
-    int poolout_strides[n_imgs_dims];
+    int* poolout_strides = new int[n_imgs_dims];
     array_strides(n_imgs_dims, poolout_shape, poolout_strides);
     CUDNN_CHECK(cudnnSetTensorNdDescriptor(
         poolout_desc, CUDNN_DATA_FLOAT, n_imgs_dims, poolout_shape,
         poolout_strides
     ));
+    delete[] poolout_strides;
+    delete[] poolout_shape;
   }
 
   CUDNN_CHECK(cudnnPoolingForward(
