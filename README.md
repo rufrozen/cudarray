@@ -37,7 +37,37 @@ Install the cudarray Python package:
 
     python setup.py --without-cuda install
 
+##### On Windows with CUDA back-end
+Requered:
+ - [python-2.7.10.amd64.msi](https://www.python.org/downloads/)
+ - [Visual Studio Community 2013](https://www.visualstudio.com/en-us/news/vs2013-community-vs.aspx)
+ - [cuda_7.5.18_windows.exe](https://developer.nvidia.com/cuda-downloads)
+ - [cudnn-7.0-win-x64-v3.0-prod.zip](https://developer.nvidia.com/cudnn)
+ - [numpy-1.9.3+mkl-cp27-none-win_amd64.whl](http://www.lfd.uci.edu/~gohlke/pythonlibs/)
+ - [scipy-0.16.1-cp27-none-win_amd64.whl](http://www.lfd.uci.edu/~gohlke/pythonlibs/)
 
+Setup windows enviroment:
+
+    set PYTHON_PATH=C:\Programs\Python27-64
+    set CUDA_PATH=C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v7.5
+    set PATH=%PYTHON_PATH%;%PYTHON_PATH%\Scripts;%CUDA_PATH%\bin;%PATH%
+    SET VS90COMNTOOLS=%VS120COMNTOOLS%
+
+Install python dependencies:
+
+    pip install numpy-1.9.3+mkl-cp27-none-win_amd64.whl
+    pip install scipy-0.16.1-cp27-none-win_amd64.whl
+    pip install pillow
+    pip install cython
+
+Copy `cudnn-7.0-win-x64-v3.0-prod.zip/cuda` folder to `./windows/cuda`
+    
+Build `cudarray.lib` with `windows/cudarray.sln`
+    
+Install cudarray
+
+    python setup.py install
+    
 ### Documentation
 Please consult the [technical report][techreport] for now.
 Proper documentation is on the TODO list.

@@ -4,6 +4,7 @@ import os
 import glob
 import re
 import numpy
+import platform
 
 from setuptools import setup, find_packages, Feature, Command
 from Cython.Build import cythonize
@@ -14,8 +15,44 @@ from Cython.Distutils.extension import Extension
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
+def cuda_extensions_windows():
+    cudnn_dir = './windows/cuda'
+    cuda_dir = os.getenv('CUDA_PATH')
+    cudarray_lib_dir = './windows/x64/Release'
+    
+    cuda_include_dir = os.path.join(cuda_dir, 'include')
+    cuda_library_dir = os.path.join(cuda_dir, 'lib/x64')
+    cudnn_include_dir = os.path.join(cudnn_dir, 'include')
+    cudnn_library_dir = os.path.join(cudnn_dir, 'lib/x64')
+    windows_include_dir = './windows'
+    cudarray_dir = './cudarray'
+    cudarray_include_dir = './include'
 
-def cuda_extensions():
+    library_dirs = [cuda_library_dir, cudarray_lib_dir, cudnn_library_dir]
+    include_dirs = [windows_include_dir, cuda_include_dir, cudarray_include_dir, cudnn_include_dir, numpy.get_include()]
+    cython_include_dirs = ['./cudarray/wrap']
+    extra_compile_args = ['-DCUDNN_ENABLED', '-Ox', '-Wall', '-Zi']
+    libraries = ['cudarray', 'cudart', 'cublas', 'curand', 'cudnn']
+    extra_link_args = ['-debug']
+    language = 'c++'
+
+    def make_extension(name):
+        return Extension(
+            name='cudarray.wrap.' + name,
+            sources=[os.path.join(cudarray_dir, 'wrap', name + '.pyx')],
+            language=language,
+            include_dirs=include_dirs,
+            cython_include_dirs=cython_include_dirs,
+            extra_compile_args=extra_compile_args,
+            library_dirs=library_dirs,
+            libraries=libraries,
+            extra_link_args=extra_link_args,
+        )
+    ext_names = ['cudnn', 'cudart', 'array_data', 'array_ops', 'elementwise',
+                 'reduction', 'blas', 'random', 'nnet', 'image']
+    return list(map(make_extension, ext_names))
+
+def cuda_extensions_linux():
     cuda_dir = os.getenv('CUDA_PREFIX', '/usr/local/cuda')
     cuda_include_dir = os.path.join(cuda_dir, 'include')
     cuda_library_dir = os.path.join(cuda_dir, 'lib64')
@@ -68,8 +105,13 @@ def cuda_extensions():
         )
         exts.append(cudnn_ext)
     return exts
-
-
+	
+def cuda_extensions():
+	if platform.system() == "Windows":
+		return cuda_extensions_windows()
+	else:
+		return cuda_extensions_linux()
+	
 def numpy_extensions():
     cython_srcs = [
         'cudarray/numpy_backend/nnet/conv_bc01.pyx',
