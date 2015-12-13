@@ -12,6 +12,12 @@
     <Filter Include="cuda">
       <UniqueIdentifier>{e9d3e072-dfa7-4959-b960-1ceea4db9c8f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="wrap">
+      <UniqueIdentifier>{b4c63afc-bec6-4b4a-9c85-0b1a2de8020b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="windows">
+      <UniqueIdentifier>{e896d0f9-fcfc-4253-bb8c-c85b091bcace}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\nnet\cudnn.cpp">
@@ -61,8 +67,8 @@
     <ClInclude Include="..\include\cudarray\reduction.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="unistd.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\include\windows\unistd.h">
+      <Filter>windows</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -90,5 +96,67 @@
     <CudaCompile Include="..\src\reduction.cu">
       <Filter>cuda</Filter>
     </CudaCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\cudarray\wrap\array_data.pxd">
+      <Filter>wrap</Filter>
+    </None>
+    <None Include="..\cudarray\wrap\array_data.pyx">
+      <Filter>wrap</Filter>
+    </None>
+    <None Include="..\cudarray\wrap\array_ops.pxd">
+      <Filter>wrap</Filter>
+    </None>
+    <None Include="..\cudarray\wrap\array_ops.pyx">
+      <Filter>wrap</Filter>
+    </None>
+    <None Include="..\cudarray\wrap\blas.pxd">
+      <Filter>wrap</Filter>
+    </None>
+    <None Include="..\cudarray\wrap\blas.pyx">
+      <Filter>wrap</Filter>
+    </None>
+    <None Include="..\cudarray\wrap\cudart.pxd">
+      <Filter>wrap</Filter>
+    </None>
+    <None Include="..\cudarray\wrap\cudart.pyx">
+      <Filter>wrap</Filter>
+    </None>
+    <None Include="..\cudarray\wrap\cudnn.pxd">
+      <Filter>wrap</Filter>
+    </None>
+    <None Include="..\cudarray\wrap\cudnn.pyx">
+      <Filter>wrap</Filter>
+    </None>
+    <None Include="..\cudarray\wrap\elementwise.pxd">
+      <Filter>wrap</Filter>
+    </None>
+    <None Include="..\cudarray\wrap\elementwise.pyx">
+      <Filter>wrap</Filter>
+    </None>
+    <None Include="..\cudarray\wrap\image.pxd">
+      <Filter>wrap</Filter>
+    </None>
+    <None Include="..\cudarray\wrap\image.pyx">
+      <Filter>wrap</Filter>
+    </None>
+    <None Include="..\cudarray\wrap\nnet.pxd">
+      <Filter>wrap</Filter>
+    </None>
+    <None Include="..\cudarray\wrap\nnet.pyx">
+      <Filter>wrap</Filter>
+    </None>
+    <None Include="..\cudarray\wrap\random.pxd">
+      <Filter>wrap</Filter>
+    </None>
+    <None Include="..\cudarray\wrap\random.pyx">
+      <Filter>wrap</Filter>
+    </None>
+    <None Include="..\cudarray\wrap\reduction.pxd">
+      <Filter>wrap</Filter>
+    </None>
+    <None Include="..\cudarray\wrap\reduction.pyx">
+      <Filter>wrap</Filter>
+    </None>
   </ItemGroup>
 </Project>

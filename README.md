@@ -38,36 +38,39 @@ Install the cudarray Python package:
     python setup.py --without-cuda install
 
 ##### On Windows with CUDA back-end
-Requered:
- - [python-2.7.10.amd64.msi](https://www.python.org/downloads/)
- - [Visual Studio Community 2013](https://www.visualstudio.com/en-us/news/vs2013-community-vs.aspx)
- - [cuda_7.5.18_windows.exe](https://developer.nvidia.com/cuda-downloads)
- - [cudnn-7.0-win-x64-v3.0-prod.zip](https://developer.nvidia.com/cudnn)
- - [numpy-1.9.3+mkl-cp27-none-win_amd64.whl](http://www.lfd.uci.edu/~gohlke/pythonlibs/)
- - [scipy-0.16.1-cp27-none-win_amd64.whl](http://www.lfd.uci.edu/~gohlke/pythonlibs/)
 
-Setup windows enviroment:
+CUDA, CudNN and vs2013:
 
-    set PYTHON_PATH=C:\Programs\Python27-64
-    set CUDA_PATH=C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v7.5
-    set PATH=%PYTHON_PATH%;%PYTHON_PATH%\Scripts;%CUDA_PATH%\bin;%PATH%
-    SET VS90COMNTOOLS=%VS120COMNTOOLS%
+ - install [Visual Studio Community 2013](https://www.visualstudio.com/en-us/news/vs2013-community-vs.aspx)
+ - install [cuda_7.5.18_windows.exe](https://developer.nvidia.com/cuda-downloads)
+ - download [cudnn-7.0-win-x64-v3.0-prod.zip](https://developer.nvidia.com/cudnn)
+ - copy `cudnn-7.0-win-x64-v3.0-prod.zip/cuda` folder to `./cudann`
+ - build `cudarray.lib` with `vs2013/cudarray.sln`
 
-Install python dependencies:
+Python-2.7:
 
-    pip install numpy-1.9.3+mkl-cp27-none-win_amd64.whl
-    pip install scipy-0.16.1-cp27-none-win_amd64.whl
-    pip install pillow
-    pip install cython
-
-Copy `cudnn-7.0-win-x64-v3.0-prod.zip/cuda` folder to `./windows/cuda`
+ - install [python-2.7.10.amd64.msi](https://www.python.org/downloads/)
+ - download [numpy-1.9.3+mkl-cp27-none-win_amd64.whl](http://www.lfd.uci.edu/~gohlke/pythonlibs/)
+ - pip install numpy-1.9.3+mkl-cp27-none-win_amd64.whl
+ - download [scipy-0.16.1-cp27-none-win_amd64.whl](http://www.lfd.uci.edu/~gohlke/pythonlibs/)
+ - pip install scipy-0.16.1-cp27-none-win_amd64.whl
+ - pip install pillow
+ - pip install cython
+ - set VS90COMNTOOLS=%VS120COMNTOOLS%
+ - python setup.py
     
-Build `cudarray.lib` with `windows/cudarray.sln`
-    
-Install cudarray
+Python-3.4:
+ 
+ - install [python-3.4.3.amd64.msi](https://www.python.org/downloads/)
+ - download [numpy-1.9.3+mkl-cp34-none-win_amd64.whl](http://www.lfd.uci.edu/~gohlke/pythonlibs/)
+ - pip install numpy-1.9.3+mkl-cp34-none-win_amd64.whl
+ - download [scipy-0.16.1-cp34-none-win_amd64.whl](http://www.lfd.uci.edu/~gohlke/pythonlibs/)
+ - pip install scipy-0.16.1-cp34-none-win_amd64.whl
+ - pip install pillow
+ - pip install cython
+ - set VS100COMNTOOLS=%VS120COMNTOOLS%
+ - python setup.py
 
-    python setup.py install
-    
 ### Documentation
 Please consult the [technical report][techreport] for now.
 Proper documentation is on the TODO list.

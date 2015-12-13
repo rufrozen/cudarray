@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+﻿#!/usr/bin/env python
 
 import os
 import glob
@@ -16,17 +16,18 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 def cuda_extensions_windows():
-    cudnn_dir = './windows/cuda'
-    cuda_dir = os.getenv('CUDA_PATH')
-    cudarray_lib_dir = './windows/x64/Release'
-    
-    cuda_include_dir = os.path.join(cuda_dir, 'include')
-    cuda_library_dir = os.path.join(cuda_dir, 'lib/x64')
+    cudnn_dir = './cudann'
     cudnn_include_dir = os.path.join(cudnn_dir, 'include')
     cudnn_library_dir = os.path.join(cudnn_dir, 'lib/x64')
-    windows_include_dir = './windows'
+    
+    cuda_dir = os.getenv('CUDA_PATH')
+    cuda_include_dir = os.path.join(cuda_dir, 'include')
+    cuda_library_dir = os.path.join(cuda_dir, 'lib/x64')
+
+    windows_include_dir = './include/windows'
     cudarray_dir = './cudarray'
     cudarray_include_dir = './include'
+    cudarray_lib_dir = './build'
 
     library_dirs = [cuda_library_dir, cudarray_lib_dir, cudnn_library_dir]
     include_dirs = [windows_include_dir, cuda_include_dir, cudarray_include_dir, cudnn_include_dir, numpy.get_include()]

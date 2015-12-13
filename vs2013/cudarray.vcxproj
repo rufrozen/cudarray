@@ -42,11 +42,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\</IntDir>
+    <IntDir>$(SolutionDir)$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)..\build\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\</IntDir>
+    <IntDir>$(SolutionDir)$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)..\build\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -55,12 +57,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;CUDNN_ENABLED;CUDARRAY_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)\..\include;$(SolutionDir)\cuda\include;$(CUDA_PATH)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\include;$(SolutionDir)\..\include\windows;$(SolutionDir)\..\cudann\include;$(CUDA_PATH)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)\cuda\lib\x64;$(CUDA_PATH)\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\..\cudann\lib\x64;$(CUDA_PATH)\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>cudart.lib;cublas.lib;curand.lib;cudnn.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <CudaCompile>
@@ -85,14 +87,14 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;CUDNN_ENABLED;CUDARRAY_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)\..\include;$(SolutionDir)\cuda\include;$(CUDA_PATH)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\include;$(SolutionDir)\..\include\windows;$(SolutionDir)\..\cudann\include;$(CUDA_PATH)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SolutionDir)\cuda\lib\x64;$(CUDA_PATH)\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\..\cudann\lib\x64;$(CUDA_PATH)\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>cudart.lib;cublas.lib;curand.lib;cudnn.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <CudaCompile />
@@ -124,7 +126,7 @@
     <ClInclude Include="..\include\cudarray\nnet\pool_b01.hpp" />
     <ClInclude Include="..\include\cudarray\random.hpp" />
     <ClInclude Include="..\include\cudarray\reduction.hpp" />
-    <ClInclude Include="unistd.h" />
+    <ClInclude Include="..\include\windows\unistd.h" />
   </ItemGroup>
   <ItemGroup>
     <CudaCompile Include="..\src\array_ops.cu" />
@@ -135,6 +137,28 @@
     <CudaCompile Include="..\src\nnet\pool_b01.cu" />
     <CudaCompile Include="..\src\random.cu" />
     <CudaCompile Include="..\src\reduction.cu" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\cudarray\wrap\array_data.pxd" />
+    <None Include="..\cudarray\wrap\array_data.pyx" />
+    <None Include="..\cudarray\wrap\array_ops.pxd" />
+    <None Include="..\cudarray\wrap\array_ops.pyx" />
+    <None Include="..\cudarray\wrap\blas.pxd" />
+    <None Include="..\cudarray\wrap\blas.pyx" />
+    <None Include="..\cudarray\wrap\cudart.pxd" />
+    <None Include="..\cudarray\wrap\cudart.pyx" />
+    <None Include="..\cudarray\wrap\cudnn.pxd" />
+    <None Include="..\cudarray\wrap\cudnn.pyx" />
+    <None Include="..\cudarray\wrap\elementwise.pxd" />
+    <None Include="..\cudarray\wrap\elementwise.pyx" />
+    <None Include="..\cudarray\wrap\image.pxd" />
+    <None Include="..\cudarray\wrap\image.pyx" />
+    <None Include="..\cudarray\wrap\nnet.pxd" />
+    <None Include="..\cudarray\wrap\nnet.pyx" />
+    <None Include="..\cudarray\wrap\random.pxd" />
+    <None Include="..\cudarray\wrap\random.pyx" />
+    <None Include="..\cudarray\wrap\reduction.pxd" />
+    <None Include="..\cudarray\wrap\reduction.pyx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
